@@ -42,8 +42,29 @@ module EulerTwo =
                 |> sumList
 
 
+module EulerThree = 
+ 
+        let factorOf (multiple : bigint) (factor : bigint) = multiple % factor  = 0I
+
+        let isPrime (number : bigint) =
+            match number with
+                | _ -> seq { bigint(2) .. bigint(Math.Sqrt(float number))}
+                |> Seq.exists (fun x -> if (number % x = bigint(0)) then true else false)
+                |> not
+
+        let largestPrimeFactor (int: bigint) = 
+                let factorOfInt = factorOf int
+                seq {1I..int}
+                |> Seq.filter isPrime
+                |> Seq.filter factorOfInt
+                |> Seq.toList
+                |> List.max
+
+
+
 [<EntryPoint>]
 let main argv =
-  printfn "Euler 1: %i" (EulerOne.filterAndAdd [1..999])
-  printfn "Euler 2: %A" (EulerTwo.fibSum 4000000)
+//   printfn "Euler 1: %i" (EulerOne.filterAndAdd [1..999])
+//   printfn "Euler 2: %A" (EulerTwo.fibSum 4000000)
+  printfn "Euler 3: %A" (EulerThree.largestPrimeFactor 600851475143I)
   0
